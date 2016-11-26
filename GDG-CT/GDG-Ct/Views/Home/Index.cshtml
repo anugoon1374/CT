@@ -120,4 +120,26 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        function test() {
+            var sourceText = escape(document.getElementById("sourceText").innerHTML);
+            var source = "https://www.googleapis.com/language/translate/v2?key=AIzaSyBBsdXcsCLjSex4-9EReA_MqsBFrLrkwm4&source=en&target=ar&callback=translateText&q=";
+            $.ajax({
+                url: source + encodeURIComponent(sourceText),
+                dataType: 'jsonp',
+                jsonpCallback: "translateText",
+                async: false,
+
+
+                error: function (x, e) {
+                    alert('Error occured while translating the text');
+                }
+            });
+        }
+
+        function translateText(data) {
+            alert(data);
+        }
+    </script>
 }

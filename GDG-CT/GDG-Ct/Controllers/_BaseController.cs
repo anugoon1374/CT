@@ -1,12 +1,12 @@
-﻿using Microsoft.Web.Mvc;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Web.Mvc;
 
-namespace Beyond.Ct.Web.Controllers
+namespace GDG_Ct.Controllers
 {
     public abstract class BaseController : Controller
     {

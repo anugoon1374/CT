@@ -8,7 +8,7 @@
 
 using System.Web.Mvc;
 
-namespace Beyond.Ct.Web.Controllers
+namespace GDG_Ct.Controllers
 {
     public class HomeController : BaseController
     {
