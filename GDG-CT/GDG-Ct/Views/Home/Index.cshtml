@@ -1,0 +1,123 @@
+﻿@model Beyond.Ct.Web.ViewModels.RequestViewModel
+
+<div class="jumbotron">
+    <h1 class="display-1">Welcome to CT</h1>
+    <p class="lead">CT or Collaborate Translator is the United Nations internal tool to help translate any type of work using your own colleague network.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Why CT?</h2>
+        <p>The purpose of CT is to empower every staff to reach out to every person on Earth without a language barrier.</p>
+        @Html.ActionLink("Learn more", "About", "Home", new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>How CT work?</h2>
+        <p>CT utilize automatic translate service combine with our people knowledge to make the translation more accurate and context-wise.</p>
+        @Html.ActionLink("Learn more", "About", "Home", new { @class = "btn btn-default" })
+    </div>
+    <div class="col-md-4">
+        <h2>Who built CT?</h2>
+        <p>CT was built by a group of software engineer in Bangkok and Geneva, who working under OICT, United Nations Secretariat.</p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <hr />
+    </div>
+</div>
+
+@using (Html.BeginForm("Index", "Home", null, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Using CT</h2>
+            <p>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            </p>
+        </div>
+    </div>
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <p>
+                1. Paste the text you want to translate in the text-box below.
+            </p>
+        </div>
+        <div class="col-md-12">
+            @Html.TextAreaFor(m => m.Content, new { @class = "form-control", @style = "min-width: 100%", @rows = 15, placeholder = "Gently paste your work here." })
+            @Html.ValidationMessageFor(m => m.Content, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <p>
+                2. What is the context of the work you want your colleague to help translate? Please be short and precise.
+            </p>
+        </div>
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.Context, new { @class = "form-control", @style = "min-width: 100%", placeholder = "Formal or informal, under 120 letters" })
+            @Html.ValidationMessageFor(m => m.Context, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <p>
+                3. Input your colleague name and their email you want to send a favor request.
+                Due to security reason, we allow only internal UN email address.
+                Broadcast and group mail also forbidden.
+            </p>
+        </div>
+        @for (var index = 0; index < 5; index++)
+        {
+            <div class="col-md-12 top-buffer">
+                <div class="row">
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.ReceiverName[@index], new { @class = "form-control", @style = "min-width: 100%", placeholder = "Colleague name # " + (@index + 1) })
+                        @Html.ValidationMessageFor(m => m.ReceiverName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.TextBoxFor(m => m.ReceiverEmail[@index], new { @class = "form-control", @style = "min-width: 100%", placeholder = "Colleague email # " + (@index + 1) })
+                        @Html.ValidationMessageFor(m => m.ReceiverEmail[@index], "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <p>
+                4. Input your email to receive notification of the status of the work.
+                Your email will be used as a sender.
+                The system will not work if you use a fake email.
+            </p>
+        </div>
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.RequesterEmail, new { @class = "form-control", @style = "min-width: 100%", placeholder = "Use your email, not others" })
+            @Html.ValidationMessageFor(m => m.RequesterEmail, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="row top-buffer">
+        <div class="col-md-12">
+            <p>
+                5. Click submit and you are done.
+                We will send you an email how your request goes every 24 hours for three days.
+                You can pick up your translated work directly from your mail.
+            </p>
+        </div>
+        <div class="col-md-12">
+            <input type="submit" value="Submit Request" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
